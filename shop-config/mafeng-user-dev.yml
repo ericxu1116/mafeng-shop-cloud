@@ -1,0 +1,33 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: mafeng-user # 服务名
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.66.133:3306/mafeng_user?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useUnicode=true&useSSL=true
+    username: root
+    password: root
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.66.133:7801
+        # ephemeral: false # 持久实例
+        #namespace: 1a3ace38-12ff-4ec6-ad9c-a06040e20a45
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true # 开启驼峰命名
+  type-aliases-package: cn.mf5.shop.pojo  # 实体扫描
+
+logging:
+  level:
+    cn.mf5: debug # 为了方便调试sql语句
+
+# eureka客户端向Eureka-Server注册信息
+#eureka:
+# client:
+#    service-url:
+#      defaultZone: http://mafeng:mafeng123@localhost:8761/eureka/eureka
+      #defaultZone: http://192.168.66.133:8761/eureka/eureka,http://192.168.66.133:8762/eureka/eureka,http://192.168.66.133:8763/eureka/eureka
