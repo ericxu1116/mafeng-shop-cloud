@@ -1,0 +1,55 @@
+server:
+  port: 9002
+spring:
+  application:
+    name: mafeng-order
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.66.133:3306/mafeng_order?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useUnicode=true&useSSL=true
+    username: root
+    password: root
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.66.133:7801
+        #namespace: 1a3ace38-12ff-4ec6-ad9c-a06040e20a45
+        cluster-name: BJ  # 集群名称
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true # 开启驼峰命名
+  type-aliases-package: cn.mf5.shop.pojo  # 实体扫描
+
+logging:
+  level:
+    cn.mf5: debug # 为了方便调试sql语句
+
+mafeng-user:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.alibaba.cloud.nacos.ribbon.NacosRule
+
+ribbon:
+  eager-load:
+    enabled: true  # 开启饥饿加载
+    clients:
+      - mafeng-user  # clients是一个List集合。如果要配置多个服务名字，则换一行。用-做为前缀，每行写一个
+
+#feign:
+#  client:
+#    config:
+#      mafeng-user:  # 针对某个微服务的配置
+#        loggerLevel: FULL #  日志级别
+
+#feign:
+#  client:
+#    config:
+#      default: # 这里用default就是全局配置，如果是写服务名称，则是针对某个微服务的配置
+#        loggerLevel: FULL #  日志级别
+
+# eureka客户端向Eureka-Server注册信息
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://mafeng:mafeng123@localhost:8761/eureka/eureka
+      #defaultZone: http://192.168.66.133:8761/eureka/eureka,http://192.168.66.133:8762/eureka/eureka,http://192.168.66.133:8763/eureka/eureka
